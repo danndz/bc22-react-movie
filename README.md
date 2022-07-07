@@ -1,5 +1,6 @@
 ### Libraries
 - Router: react-router-dom
+- API: axios
 
 ### Project structure
 
@@ -15,3 +16,17 @@
 
   - template/
     - Chứa các component layout
+
+  - services/
+    - Setup thành phần call API (axios)
+    - Chứa các hàm gọi API
+
+
+
+
+
+
+
+
+
+
