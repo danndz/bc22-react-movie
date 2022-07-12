@@ -1,6 +1,7 @@
 ### Libraries
 - Router: react-router-dom
 - API: axios
+- Redux: @reduxjs/tookit, react-redux
 
 ### Project structure
 

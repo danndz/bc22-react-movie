@@ -1,8 +1,9 @@
+import { Movie } from "interfaces/movie";
 import axiosClient from "./axiosClient";
 
 const movieAPI = {
   getMovieList: () => {
-    return axiosClient.get("QuanLyPhim/LayDanhSachPhim");
+    return axiosClient.get<unknown, Movie[]>("QuanLyPhim/LayDanhSachPhim");
   },
 
   getMovieBanner: () => {
