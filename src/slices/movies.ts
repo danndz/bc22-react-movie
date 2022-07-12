@@ -14,17 +14,22 @@ const initialState: MoviesState = {
   error: "",
 };
 
+// createAsyncThunk sẽ tự động dispatch 3 action pending/fullfiled/rejected
+// Ta sẽ bắt và xử lý các action này ở extraReducers bên trong hàm createSlice
 export const getMovieList = createAsyncThunk(
   "movies/getMovieList",
   // Hàm này nhận vào 2 tham số:
   // - Tham số truyền vào khi dispatch action getMovieList: dispatch(getMovieList(params))
   // - ThunkAPI: là một object chứa các hàm của redux thunk như dispatch, getState,...
   async () => {
+    // tự động dispatch action movies/getMovieList/pending
     try {
       const data = await movieAPI.getMovieList();
       // call API thành công return về data
+      // return data => tự động dispatch action movies/getMovieList/fullfiled
       return data;
     } catch (error) {
+      // throw error => tự động dispatch action movies/getMovieList/rejected
       throw error;
     }
   }

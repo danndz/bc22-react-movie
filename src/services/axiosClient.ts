@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import store from "store";
 
 // Setup cấu hình mặc định cho axios
 const axiosClient = axios.create({
@@ -23,8 +24,22 @@ axiosClient.interceptors.response.use(
   },
   (error: AxiosError<ErrorResponse>) => {
     // request API thất bại, ta có thể thay đổi error trước khi trả ra cho nơi gọi request
-    Promise.reject(error.response?.data.content);
+    return Promise.reject(error.response?.data.content);
   }
 );
+
+// setup request interceptor
+axiosClient.interceptors.request.use((config) => {
+  // config là thông tin của request sẽ được gửi lên server
+  // Kiểm tra xem user đã đăng nhập hay chưa để lấy accessToken gắn vào headers
+  if (config.headers) {
+    const { accessToken } = store.getState().auth.currentUser;
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+  }
+
+  return config;
+});
 
 export default axiosClient;
